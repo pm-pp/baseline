@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Accordion } from "./Accordion";
+import { Popover } from "./Popover";
 
 const features = [
   { title: "Exclusive accordion", content: <Accordion /> },
-  { title: "Popover API", content: <>Popover API</> },
+  { title: "Popover API", content: <Popover /> },
 ];
 
 function App() {
