@@ -30,3 +30,25 @@
   - https://squads.com/blog/building-better-apps-with-local-first-principles
 - Consolidate CSS Grid
   - [CSS Grid Areas](https://ishadeed.com/article/css-grid-area)
+
+## Popover versus modal dialog
+
+[Source](https://web.dev/blog/popover-api?hl=en#popover_versus_modal_dialog)
+
+The modal `<dialog>` element
+
+- Opened with dialog.showModal().
+- Closed with dialog.close().
+- Makes the rest of the page inert.
+- Does not support light-dismiss behavior.
+- You can style the open state with the [open] attribute.
+- Semantically represents an interactive component that blocks interaction with the rest of the page.
+
+The `[popover]` attribute
+
+- Can be opened with a declarative invoker (popovertarget).
+- Closed with popovertarget (auto popover) or popovertargetaction=hide (manual popover).
+- Does not make the rest of the page inert.
+- Supports light-dismiss behavior.
+- You can style the open state with the :popover-open pseudo-class.
+- No inherent semantics.
