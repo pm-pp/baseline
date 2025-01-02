@@ -6,8 +6,8 @@ import { ComponentPropsWithoutRef } from "react";
  */
 export function Popover() {
   return (
-    <section className="mx-auto flex w-full max-w-sm flex-col justify-center gap-4">
-      {[Basic, Backdrop].map((Component, index) => (
+    <section className="mx-auto flex w-full max-w-sm flex-col justify-center gap-8">
+      {[Basic, Backdrop, Multiple].map((Component, index) => (
         <Component key={index} />
       ))}
     </section>
@@ -17,15 +17,21 @@ export function Popover() {
 function Basic() {
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="text-center text-lg font-bold">Basic</h2>
+      <h2 className="text-center text-xl font-bold">
+        Basic declarative popover
+      </h2>
 
-      <Button popoverTarget="basic" popoverTargetAction="show">
-        Open popover
-      </Button>
+      <p className="text-center">Demonstrates a basic auto state popover</p>
 
-      <Button popoverTarget="basic" popoverTargetAction="hide">
-        Hide popover
-      </Button>
+      <div className="flex gap-2">
+        <Button popoverTarget="basic" popoverTargetAction="show">
+          Open popover
+        </Button>
+
+        <Button popoverTarget="basic" popoverTargetAction="hide">
+          Hide popover
+        </Button>
+      </div>
 
       <div
         id="basic"
@@ -41,7 +47,12 @@ function Basic() {
 function Backdrop() {
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="text-center text-lg font-bold">Backdrop</h2>
+      <h2 className="text-center text-xl font-bold">Blur background popover</h2>
+
+      <p className="text-center">
+        Shows how to add styling to the content behind the popover using the
+        <em>::backdrop</em> pseudo-element.
+      </p>
 
       <Button popoverTarget="backdrop">Open popover</Button>
 
@@ -56,6 +67,40 @@ function Backdrop() {
           attention to before you light dismiss it. Read it all, do not delay!
         </p>
       </div>
+    </div>
+  );
+}
+
+function Multiple() {
+  return (
+    <div className="relative flex flex-col gap-2">
+      <h2 className="text-center text-xl font-bold">Multiple auto popovers</h2>
+
+      <p className="text-center">
+        Demonstrates that, generally, only one auto popover can be displayed at
+        once.
+      </p>
+
+      <div className="flex gap-2">
+        {["1", "2"].map((id) => (
+          <Button
+            key={`multiple-popover-${id}`}
+            popoverTarget={`popover-${id}`}
+          >
+            Show popover #{id}
+          </Button>
+        ))}
+      </div>
+
+      {["1", "2"].map((id) => (
+        <div
+          id={`popover-${id}`}
+          popover="auto"
+          className="absolute top-10 mx-auto rounded-lg bg-purple-600 p-4 text-xl font-medium text-white"
+        >
+          Popover content #{id}
+        </div>
+      ))}
     </div>
   );
 }
