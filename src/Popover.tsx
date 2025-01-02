@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef } from "react";
+import { ComponentPropsWithoutRef, useState } from "react";
 
 /**
  * The `popover=auto` enables light-dismiss behavior and automatically closes other popovers.
@@ -36,7 +36,7 @@ function Basic() {
       <div
         id="basic"
         popover="auto"
-        className="absolute top-12 right-0 left-0 mx-auto min-w-64 items-start gap-2 rounded-lg bg-purple-600 p-4 text-xl font-medium text-white opacity-0 transition-all transition-discrete duration-300 open:opacity-100 starting:open:opacity-0"
+        className="fixed top-12 right-0 left-0 mx-auto min-w-64 items-start gap-2 rounded-lg bg-purple-600 p-4 text-xl font-medium text-white opacity-0 transition-all transition-discrete duration-300 open:opacity-100 starting:open:opacity-0"
       >
         <p>I am a basic popover with more information.</p>
       </div>
@@ -59,7 +59,7 @@ function Backdrop() {
       <div
         id="backdrop"
         popover="auto"
-        className="absolute right-0 left-0 m-auto min-w-64 items-start gap-2 rounded-lg bg-purple-600 p-4 text-xl font-medium text-white opacity-0 transition-all transition-discrete duration-300 backdrop:backdrop-blur-xs open:opacity-100 starting:open:opacity-0"
+        className="fixed right-0 left-0 m-auto min-w-64 items-start gap-2 rounded-lg bg-purple-600 p-4 text-xl font-medium text-white opacity-0 transition-all transition-discrete duration-300 backdrop:backdrop-blur-xs open:opacity-100 starting:open:opacity-0"
       >
         <h3 className="text-2xl font-bold">Popover heading</h3>
         <p>
@@ -71,32 +71,69 @@ function Backdrop() {
   );
 }
 
+type PopoverAttribute = "auto" | "manual";
+
 function Multiple() {
+  const [popover, setPopover] = useState<PopoverAttribute>("auto");
+
   return (
     <div className="relative flex flex-col gap-2">
       <h2 className="text-center text-xl font-bold">Multiple auto popovers</h2>
 
       <p className="text-center">
-        Demonstrates that, generally, only one auto popover can be displayed at
-        once.
+        Demonstrates that, generally, only one <em>auto</em> popover can be
+        displayed at once. Also demonstrates that multiple <em>manual</em>{" "}
+        popovers can be displayed at once, but they can't be light-dismissed.
       </p>
 
-      <div className="flex gap-2">
-        {["1", "2"].map((id) => (
-          <Button
-            key={`multiple-popover-${id}`}
-            popoverTarget={`popover-${id}`}
-          >
-            Show popover #{id}
-          </Button>
-        ))}
+      <fieldset
+        className="flex items-center justify-center gap-2"
+        onChange={(e) =>
+          setPopover((e.target as HTMLInputElement).value as PopoverAttribute)
+        }
+      >
+        <input
+          type="radio"
+          id="auto"
+          name="auto"
+          value="auto"
+          checked={popover === "auto"}
+        />
+        <label htmlFor="auto">auto</label>
+        <input
+          type="radio"
+          id="manual"
+          name="manual"
+          value="manual"
+          checked={popover === "manual"}
+        />
+        <label htmlFor="manual">manual</label>
+      </fieldset>
+
+      <div className="flex flex-col gap-2">
+        {["1", "2"].map((id) => {
+          const target = `popover-${id}`;
+          return (
+            <div key={`multiple-popover-${id}`} className="flex w-full gap-1">
+              <Button popoverTarget={target} popoverTargetAction="show">
+                Show popover #{id}
+              </Button>
+
+              {popover === "manual" && (
+                <Button popoverTarget={target} popoverTargetAction="hide">
+                  Hide popover #{id}
+                </Button>
+              )}
+            </div>
+          );
+        })}
       </div>
 
       {["1", "2"].map((id) => (
         <div
           id={`popover-${id}`}
-          popover="auto"
-          className="absolute top-10 mx-auto rounded-lg bg-purple-600 p-4 text-xl font-medium text-white"
+          popover={popover}
+          className="fixed top-10 mx-auto rounded-lg bg-purple-600 p-4 text-xl font-medium text-white"
         >
           Popover content #{id}
         </div>
