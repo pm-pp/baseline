@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { MouseEventHandler, useRef, useState } from "react";
 import { Button } from "./Button";
 
 /**
@@ -8,7 +8,7 @@ import { Button } from "./Button";
 export function Popover() {
   return (
     <section className="mx-auto flex w-full max-w-lg flex-col justify-center gap-8">
-      {[Basic, Backdrop, Multiple, Nested].map((Component, index) => (
+      {[Basic, Backdrop, Multiple, Nested, Toast].map((Component, index) => (
         <Component key={`component-${index}`} />
       ))}
     </section>
@@ -202,6 +202,86 @@ function Nested() {
           <a href="#">Finland</a>
         </nav>
       </div>
+    </div>
+  );
+}
+
+function Toast() {
+  interface ToastType {
+    id: ReturnType<typeof crypto.randomUUID>;
+    type: "success" | "fail";
+    message: string;
+  }
+  const toastContainerRef = useRef<HTMLUListElement>(null);
+  const [toasts, setToasts] = useState<Array<ToastType>>([]);
+  const successCount = toasts.filter(({ type }) => type === "success").length;
+  const failCount = toasts.filter(({ type }) => type === "fail").length;
+  const handleGenerate =
+    (type: ToastType["type"]): MouseEventHandler<HTMLButtonElement> =>
+    () => {
+      const toast = {
+        id: crypto.randomUUID(),
+        type,
+        message:
+          type === "success" ? "Action was successful!" : "Action failed!",
+      };
+
+      const modifiedToasts = [...toasts, toast];
+
+      setToasts(modifiedToasts);
+
+      if (modifiedToasts.length > 0) {
+        toastContainerRef.current?.showPopover();
+      } else {
+        toastContainerRef.current?.hidePopover();
+      }
+
+      setTimeout(() => {
+        setToasts((prev) => prev.filter((t) => t.id !== toast.id));
+      }, 4000);
+    };
+
+  return (
+    <div className="flex flex-col gap-2">
+      <h2 className="text-xl font-bold">Toast popovers</h2>
+
+      <p>
+        Illustrates how to make a simple system of "toast" notifications with
+        popovers, which automatically hide again after a certain time.
+      </p>
+
+      <div className="flex gap-2">
+        <Button onClick={handleGenerate("success")}>
+          Generate success toast
+        </Button>
+
+        <Button onClick={handleGenerate("fail")}>Generate fail toast</Button>
+      </div>
+
+      <p>
+        Successes: {successCount} | Failures: {failCount}
+      </p>
+
+      <ul
+        ref={toastContainerRef}
+        popover="manual"
+        className="fixed top-0 right-0 flex flex-col-reverse gap-2 p-2"
+      >
+        {toasts.map(({ id, type, message }, index) => (
+          <li
+            key={`toast-${id}`}
+            className={[
+              "rounded-lg p-2 font-medium text-white",
+              type === "success" && "bg-green-600",
+              type === "fail" && "bg-red-600",
+            ]
+              .filter(Boolean)
+              .join(" ")}
+          >
+            {`#${index} ${message}`}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
