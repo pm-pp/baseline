@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Accordion } from "./Accordion";
 import { Popover } from "./Popover";
+import { AnchorPositioning } from "./AnchorPositioning";
 
 const features = [
   { title: "Exclusive accordion", content: <Accordion /> },
   { title: "Popover API", content: <Popover /> },
+  { title: "CSS Anchor Positioning", content: <AnchorPositioning /> },
 ];
 
 function App() {
