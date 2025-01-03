@@ -27,7 +27,7 @@ function App() {
           ))}
         </nav>
       </header>
-      <main className="w-full">{feature.content}</main>
+      <main className="w-full p-8">{feature.content}</main>
     </div>
   );
 }

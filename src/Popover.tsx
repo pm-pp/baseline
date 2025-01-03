@@ -1,4 +1,5 @@
-import { ComponentPropsWithoutRef, useState } from "react";
+import { useRef, useState } from "react";
+import { Button } from "./Button";
 
 /**
  * The `popover=auto` enables light-dismiss behavior and automatically closes other popovers.
@@ -6,9 +7,9 @@ import { ComponentPropsWithoutRef, useState } from "react";
  */
 export function Popover() {
   return (
-    <section className="mx-auto flex w-full max-w-sm flex-col justify-center gap-8">
-      {[Basic, Backdrop, Multiple].map((Component, index) => (
-        <Component key={index} />
+    <section className="mx-auto flex w-full max-w-lg flex-col justify-center gap-8">
+      {[Basic, Backdrop, Multiple, Nested].map((Component, index) => (
+        <Component key={`component-${index}`} />
       ))}
     </section>
   );
@@ -17,11 +18,9 @@ export function Popover() {
 function Basic() {
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="text-center text-xl font-bold">
-        Basic declarative popover
-      </h2>
+      <h2 className="text-xl font-bold">Basic declarative popover</h2>
 
-      <p className="text-center">Demonstrates a basic auto state popover</p>
+      <p>Demonstrates a basic auto state popover</p>
 
       <div className="flex gap-2">
         <Button popoverTarget="basic" popoverTargetAction="show">
@@ -47,9 +46,9 @@ function Basic() {
 function Backdrop() {
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="text-center text-xl font-bold">Blur background popover</h2>
+      <h2 className="text-xl font-bold">Blur background popover</h2>
 
-      <p className="text-center">
+      <p>
         Shows how to add styling to the content behind the popover using the
         <em>::backdrop</em> pseudo-element.
       </p>
@@ -59,10 +58,10 @@ function Backdrop() {
       <div
         id="backdrop"
         popover="auto"
-        className="fixed right-0 left-0 m-auto min-w-64 items-start gap-2 rounded-lg bg-purple-600 p-4 text-xl font-medium text-white opacity-0 transition-all transition-discrete duration-300 backdrop:backdrop-blur-xs open:opacity-100 starting:open:opacity-0"
+        className="fixed right-0 left-0 m-auto min-w-64 rounded-lg bg-purple-600 p-4 text-xl font-medium text-white opacity-0 transition-all transition-discrete duration-300 backdrop:backdrop-blur-xs open:opacity-100 starting:open:opacity-0"
       >
         <h3 className="text-2xl font-bold">Popover heading</h3>
-        <p>
+        <p className="mt-4">
           This here is some very important content that we want to draw your
           attention to before you light dismiss it. Read it all, do not delay!
         </p>
@@ -71,33 +70,29 @@ function Backdrop() {
   );
 }
 
-type PopoverAttribute = "auto" | "manual";
-
 function Multiple() {
+  type PopoverAttribute = "auto" | "manual";
+
   const [popover, setPopover] = useState<PopoverAttribute>("auto");
 
   return (
     <div className="relative flex flex-col gap-2">
-      <h2 className="text-center text-xl font-bold">Multiple auto popovers</h2>
+      <h2 className="text-xl font-bold">Multiple auto popovers</h2>
 
-      <p className="text-center">
+      <p>
         Demonstrates that, generally, only one <em>auto</em> popover can be
         displayed at once. Also demonstrates that multiple <em>manual</em>{" "}
         popovers can be displayed at once, but they can't be light-dismissed.
       </p>
 
-      <fieldset
-        className="flex items-center justify-center gap-2"
-        onChange={(e) =>
-          setPopover((e.target as HTMLInputElement).value as PopoverAttribute)
-        }
-      >
+      <fieldset className="flex gap-2">
         <input
           type="radio"
           id="auto"
           name="auto"
           value="auto"
           checked={popover === "auto"}
+          onChange={() => setPopover("auto")}
         />
         <label htmlFor="auto">auto</label>
         <input
@@ -106,6 +101,7 @@ function Multiple() {
           name="manual"
           value="manual"
           checked={popover === "manual"}
+          onChange={() => setPopover("manual")}
         />
         <label htmlFor="manual">manual</label>
       </fieldset>
@@ -114,7 +110,7 @@ function Multiple() {
         {["1", "2"].map((id) => {
           const target = `popover-${id}`;
           return (
-            <div key={`multiple-popover-${id}`} className="flex w-full gap-1">
+            <div key={`multiple-${target}`} className="flex w-full gap-1">
               <Button popoverTarget={target} popoverTargetAction="show">
                 Show popover #{id}
               </Button>
@@ -131,6 +127,7 @@ function Multiple() {
 
       {["1", "2"].map((id) => (
         <div
+          key={`popover-${id}`}
           id={`popover-${id}`}
           popover={popover}
           className="fixed top-10 mx-auto rounded-lg bg-purple-600 p-4 text-xl font-medium text-white"
@@ -142,14 +139,69 @@ function Multiple() {
   );
 }
 
-function Button({ children, ...props }: ComponentPropsWithoutRef<"button">) {
+function Nested() {
+  const menuRef = useRef<HTMLDivElement>(null);
+  const submenuRef = useRef<HTMLDivElement>(null);
+  const submenuContainerRef = useRef<HTMLDivElement>(null);
+
   return (
-    <button
-      popoverTarget="popover"
-      className="w-full rounded-sm border-2 border-purple-600 px-4 py-2 text-sm font-bold hover:not-[:disabled]:bg-purple-700 hover:not-[:disabled]:text-white disabled:bg-purple-300 disabled:text-purple-200"
-      {...props}
-    >
-      {children}
-    </button>
+    <div className="flex flex-col gap-2">
+      <h2 className="text-xl font-bold">Nested popover menu</h2>
+
+      <p>Demonstrates the behavior of nested auto state popovers.</p>
+
+      <Button
+        popoverTarget="mainpopover"
+        popoverTargetAction="toggle"
+        className="[anchor-name:--menu-anchor]"
+      >
+        Menu
+      </Button>
+
+      <div
+        ref={menuRef}
+        id="mainpopover"
+        popover="auto"
+        className="fixed rounded-lg border-2 border-white bg-purple-600 p-1 text-xl font-medium text-white [position-anchor:--menu-anchor] [position-area:top]"
+        onClick={() => {
+          menuRef.current?.hidePopover();
+          submenuRef.current?.hidePopover();
+        }}
+      >
+        <nav className="flex flex-col decoration-2 underline-offset-4 **:[a]:p-2 **:hover:[a]:underline">
+          <a href="#">Home</a>
+          <div
+            ref={submenuContainerRef}
+            className="flex flex-col [anchor-name:--submenu-anchor]"
+            tabIndex={0}
+            onFocus={() => submenuRef.current?.showPopover()}
+            onMouseOver={() => submenuRef.current?.showPopover()}
+            onMouseOut={() => submenuRef.current?.hidePopover()}
+          >
+            <a href="#">Pizza ➡</a>
+            <div
+              ref={submenuRef}
+              id="subpopover"
+              popover="auto"
+              className="fixed rounded-lg border-2 border-white bg-purple-600 p-1 text-xl font-medium text-white [position-anchor:--submenu-anchor] [position-area:right]"
+              onClick={() => {
+                menuRef.current?.hidePopover();
+                submenuRef.current?.hidePopover();
+              }}
+            >
+              <div className="flex flex-col decoration-2 underline-offset-4">
+                <a href="#">Margherita</a>
+                <a href="#">Pepperoni</a>
+                <a href="#">Ham &amp; Shroom</a>
+                <a href="#">Vegan</a>
+              </div>
+            </div>
+          </div>
+          <a href="#">Music</a>
+          <a href="#">Wombats</a>
+          <a href="#">Finland</a>
+        </nav>
+      </div>
+    </div>
   );
 }
