@@ -28,6 +28,7 @@ export function Accordion() {
         Exclusive?
         <input
           type="checkbox"
+          name="exclusive"
           checked={isExclusive}
           onChange={(event) => setIsExclusive(event.currentTarget.checked)}
         />

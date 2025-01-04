@@ -1,4 +1,5 @@
 import { ComponentPropsWithoutRef } from "react";
+import { cn } from "./cn";
 
 export function AnchorPositioning() {
   return (
@@ -78,11 +79,11 @@ function Footnote({ className, ...props }: ComponentPropsWithoutRef<"span">) {
   return (
     <span
       {...props}
-      className={[
+      className={cn(
         "flex gap-1 rounded-xl bg-fuchsia-200 p-2 before:font-bold before:content-['Note:']",
         "lg:absolute lg:mx-5 lg:bg-gray-100 lg:before:content-['']",
         className,
-      ].join(" ")}
+      )}
     />
   );
 }

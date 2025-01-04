@@ -1,5 +1,6 @@
 import { MouseEventHandler, useRef, useState } from "react";
 import { Button } from "./Button";
+import { cn } from "./cn";
 
 /**
  * The `popover=auto` enables light-dismiss behavior and automatically closes other popovers.
@@ -270,13 +271,11 @@ function Toast() {
         {toasts.map(({ id, type, message }, index) => (
           <li
             key={`toast-${id}`}
-            className={[
+            className={cn(
               "rounded-lg p-2 font-medium text-white",
               type === "success" && "bg-green-600",
               type === "fail" && "bg-red-600",
-            ]
-              .filter(Boolean)
-              .join(" ")}
+            )}
           >
             {`#${index} ${message}`}
           </li>
