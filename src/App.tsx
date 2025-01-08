@@ -4,11 +4,13 @@ import { Popover } from "./Popover";
 import { AnchorPositioning } from "./AnchorPositioning";
 import { Button } from "./Button";
 import { cn } from "./cn";
+import { ScrollDrivenAnimation } from "./ScrollDrivenAnimation";
 
 const features = [
   { title: "Exclusive accordion", content: <Accordion /> },
   { title: "Popover API", content: <Popover /> },
   { title: "CSS Anchor Positioning", content: <AnchorPositioning /> },
+  { title: "Scroll-driven Animations", content: <ScrollDrivenAnimation /> },
 ];
 
 type Feature = (typeof features)[0];

@@ -18,6 +18,7 @@
   - https://web.dev/blog/import-maps-in-all-modern-browsers
   - https://www.youtube.com/watch?v=B_cJHBiY47M
 - [Scroll-Driven Animations](https://css-tricks.com/unleash-the-power-of-scroll-driven-animations/)
+  - [A bunch of demos and tools to show off Scroll-driven Animations](https://scroll-driven-animations.style/)
 - [Full-bleed layout with modern CSS](https://css-tip.com/full-bleed-layout)
 - [Intl APIs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)
   - [JS Intl API Examples - Dependency Free Formatting](https://www.youtube.com/watch?v=DyHXvcX0BGQ)

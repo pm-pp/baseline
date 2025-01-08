@@ -1,10 +1,10 @@
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700&display=swap')
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700&display=swap")
 layer(base);
 
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
-  --font-sans: 'satoshi', 'sans-sarif';
+  --font-sans: "satoshi", "sans-sarif";
 }
 
 @layer base {
@@ -28,5 +28,18 @@ layer(base);
 
   ::-webkit-scrollbar-thumb {
     @apply rounded-full bg-gray-300;
+  }
+
+  @keyframes grow-progress {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes colorize-dot {
+    0%,
+    100% {
+      background: theme(--color-red-600);
+    }
   }
 }
