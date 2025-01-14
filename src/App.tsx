@@ -53,7 +53,7 @@ function App() {
   const [feature, setFeature] = useState(features[0]);
 
   return (
-    <div className="flex h-full w-full flex-col items-center gap-8 p-4">
+    <>
       <header className="flex w-full flex-col gap-4 text-center">
         <div className="flex items-start gap-4">
           <Button
@@ -104,7 +104,7 @@ function App() {
       </header>
 
       <main className="w-full">{feature.content}</main>
-    </div>
+    </>
   );
 }
 
