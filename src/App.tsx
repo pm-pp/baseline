@@ -1,4 +1,10 @@
-import { ComponentPropsWithoutRef, useRef, useState } from "react";
+import {
+  ComponentPropsWithoutRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Accordion } from "./Accordion";
 import { Popover } from "./Popover";
 import { AnchorPositioning } from "./AnchorPositioning";
@@ -7,51 +13,90 @@ import { cn } from "./cn";
 import { ScrollDrivenAnimation } from "./ScrollDrivenAnimation";
 import { FullBleedLayout } from "./FullBleedLayout";
 
-const features = [
-  { title: "Exclusive accordion", content: <Accordion /> },
-  { title: "Popover API", content: <Popover /> },
-  { title: "CSS Anchor Positioning", content: <AnchorPositioning /> },
-  { title: "Scroll-driven Animations", content: <ScrollDrivenAnimation /> },
-  { title: "Full-bleed layout", content: <FullBleedLayout /> },
+const routes = [
+  { hash: "#accordion", title: "Exclusive accordion", content: <Accordion /> },
+  { hash: "#popover-api", title: "Popover API", content: <Popover /> },
+  {
+    hash: "#css-anchor-positioning",
+    title: "CSS Anchor Positioning",
+    content: <AnchorPositioning />,
+  },
+  {
+    hash: "#scroll-driven-animations",
+    title: "Scroll-driven Animations",
+    content: <ScrollDrivenAnimation />,
+  },
+  {
+    hash: "#full-bleed-layout",
+    title: "Full-bleed layout",
+    content: <FullBleedLayout />,
+  },
 ];
 
-type Feature = (typeof features)[0];
+type Route = (typeof routes)[0];
+
+const currentRoute = () =>
+  routes.find(({ hash }) => location.hash === hash) ?? routes[0];
 
 function Nav({
-  feature,
-  onClickFeature,
-  className,
-  ...props
-}: ComponentPropsWithoutRef<"nav"> & {
-  onClickFeature: (f: Feature) => void;
-  feature: Feature;
+  route,
+  onNavigate,
+}: {
+  route: Route;
+  onNavigate: (route: Route) => void;
 }) {
-  return (
+  const navRef = useRef<HTMLDivElement>(null);
+  const handleHashChange = useCallback(() => {
+    navRef.current?.hidePopover();
+    onNavigate(currentRoute());
+  }, [onNavigate]);
+
+  useEffect(() => {
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, [handleHashChange]);
+
+  const BaseNav = ({ className }: ComponentPropsWithoutRef<"nav">) => (
     <nav
-      {...props}
       className={cn(
         "flex flex-col flex-wrap justify-center gap-2 text-2xl font-medium",
         className,
       )}
     >
-      {features.map((f) => (
-        <button
-          key={f.title}
+      {routes.map((r) => (
+        <a
+          key={r.title}
+          href={r.hash}
           className="px-4 decoration-emerald-400 decoration-wavy decoration-2 underline-offset-8 hover:underline data-[selected=true]:underline"
-          data-selected={f.title === feature.title}
-          onClick={() => onClickFeature(f)}
+          data-selected={r.hash === route.hash}
         >
-          {f.title}
-        </button>
+          {r.title}
+        </a>
       ))}
     </nav>
+  );
+
+  return (
+    <>
+      <div
+        ref={navRef}
+        id="nav"
+        popover="auto"
+        className="h-full bg-white backdrop:backdrop-blur-xs"
+      >
+        <BaseNav className="items-start gap-4 py-4" />
+      </div>
+
+      <BaseNav className="hidden md:flex md:flex-row" />
+    </>
   );
 }
 
 function App() {
-  const navRef = useRef<HTMLDivElement>(null);
-  const [feature, setFeature] = useState(features[0]);
-
+  const [route, setRoute] = useState<Route>(currentRoute);
   return (
     <>
       <header className="flex w-full flex-col gap-4 text-center">
@@ -80,30 +125,10 @@ function App() {
           <h1 className="grow text-3xl font-bold">Baseline & beyond</h1>
         </div>
 
-        <div
-          ref={navRef}
-          id="nav"
-          popover="auto"
-          className="h-full bg-white backdrop:backdrop-blur-xs"
-        >
-          <Nav
-            feature={feature}
-            onClickFeature={(f) => {
-              setFeature(f);
-              navRef.current?.hidePopover();
-            }}
-            className="items-start gap-4 py-4"
-          />
-        </div>
-
-        <Nav
-          feature={feature}
-          onClickFeature={setFeature}
-          className="hidden md:flex md:flex-row"
-        />
+        <Nav route={route} onNavigate={setRoute} />
       </header>
 
-      <main className="w-full">{feature.content}</main>
+      <main className="w-full">{route.content}</main>
     </>
   );
 }
