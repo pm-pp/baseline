@@ -14,7 +14,10 @@ export function ScrollDrivenAnimation() {
           ></div>
 
           {colors.map((color) => (
-            <div className="gallery__entry flex-[0_0_100%] snap-center">
+            <div
+              key={color}
+              className="gallery__entry flex-[0_0_100%] snap-center"
+            >
               <img
                 src={`https://dummyimage.com/832x554/${color}/fff`}
                 alt={color}

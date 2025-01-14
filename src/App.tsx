@@ -37,7 +37,7 @@ function Nav({
       {features.map((f) => (
         <button
           key={f.title}
-          className="px-4 underline-offset-4 hover:underline data-[selected=true]:underline"
+          className="px-4 decoration-emerald-400 decoration-wavy decoration-2 underline-offset-8 hover:underline data-[selected=true]:underline"
           data-selected={f.title === feature.title}
           onClick={() => onClickFeature(f)}
         >
