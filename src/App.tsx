@@ -5,12 +5,14 @@ import { AnchorPositioning } from "./AnchorPositioning";
 import { Button } from "./Button";
 import { cn } from "./cn";
 import { ScrollDrivenAnimation } from "./ScrollDrivenAnimation";
+import { FullBleedLayout } from "./FullBleedLayout";
 
 const features = [
   { title: "Exclusive accordion", content: <Accordion /> },
   { title: "Popover API", content: <Popover /> },
   { title: "CSS Anchor Positioning", content: <AnchorPositioning /> },
   { title: "Scroll-driven Animations", content: <ScrollDrivenAnimation /> },
+  { title: "Full-bleed layout", content: <FullBleedLayout /> },
 ];
 
 type Feature = (typeof features)[0];
@@ -28,7 +30,7 @@ function Nav({
     <nav
       {...props}
       className={cn(
-        "flex flex-col justify-center text-2xl font-medium",
+        "flex flex-col flex-wrap justify-center gap-2 text-2xl font-medium",
         className,
       )}
     >
