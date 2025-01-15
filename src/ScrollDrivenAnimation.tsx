@@ -3,7 +3,7 @@ const colors = ["e851e8", "a84fa8", "6e0d6e"];
 
 export function ScrollDrivenAnimation() {
   return (
-    <div className="m-auto flex max-w-lg flex-col gap-8">
+    <main className="m-auto flex max-w-lg flex-col gap-8">
       <h2 className="text-xl font-bold">Carousel step indicator</h2>
 
       <div className="gallery relative">
@@ -33,7 +33,7 @@ export function ScrollDrivenAnimation() {
 
       <div
         data-component="carousel"
-        className="relative max-h-[70vmin] max-w-[70vmin] overflow-hidden rounded-lg border-4 border-violet-700 bg-white [timeline-scope:--carousel] hover:border-violet-400"
+        className="relative aspect-square overflow-hidden rounded-lg border-4 border-violet-700 bg-white [timeline-scope:--carousel] hover:border-violet-400"
       >
         <ul
           className="entries flex size-full [scroll-snap-type:x_mandatory] overflow-x-scroll overscroll-contain scroll-smooth [scroll-timeline:--carousel_x] [scrollbar-width:none] focus:outline-none"
@@ -42,11 +42,11 @@ export function ScrollDrivenAnimation() {
           {["01", "02", "03", "04", "05"].map((id) => (
             <li
               key={`image-${id}`}
-              className="flex flex-[100%_1_0] snap-center p-4 pb-16"
+              className="flex flex-[100%_1_0] snap-center justify-center p-4 pb-16"
             >
-              <a id={`carousel_${id}`} className="flex self-stretch">
+              <span id={`carousel_${id}`} className="flex self-stretch">
                 <img
-                  className="block h-auto w-full object-contain object-[positon:50%_100%]"
+                  className="block aspect-square h-full w-full object-contain"
                   src={`/matroshka-${id}.svg`}
                   alt=""
                   title=""
@@ -54,7 +54,7 @@ export function ScrollDrivenAnimation() {
                   height="184"
                   draggable="false"
                 />
-              </a>
+              </span>
             </li>
           ))}
         </ul>
@@ -65,14 +65,16 @@ export function ScrollDrivenAnimation() {
               className=""
               style={{ "--i": i + 1 } as CSSProperties}
             >
-              <a
-                href={`#carousel_${id}`}
+              <span
                 className="block aspect-square w-5 animate-[colorize-dot_linear] rounded-[50%] bg-violet-600 [animation-range:calc((var(--i)-1)*20%)_calc(var(--i)*20%+1px)] [animation-timeline:--carousel]"
-              ></a>
+                onClick={() => {
+                  document.getElementById(`carousel_${id}`)?.scrollIntoView();
+                }}
+              />
             </li>
           ))}
         </ul>
       </div>
-    </div>
+    </main>
   );
 }

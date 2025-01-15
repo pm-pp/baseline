@@ -8,11 +8,11 @@ import { cn } from "./cn";
  */
 export function Popover() {
   return (
-    <section className="mx-auto flex w-full max-w-lg flex-col justify-center gap-8">
+    <main className="mx-auto flex w-full max-w-lg flex-col justify-center gap-8">
       {[Basic, Backdrop, Multiple, Nested, Toast].map((Component, index) => (
         <Component key={`component-${index}`} />
       ))}
-    </section>
+    </main>
   );
 }
 

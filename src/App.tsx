@@ -14,29 +14,36 @@ import { ScrollDrivenAnimation } from "./ScrollDrivenAnimation";
 import { FullBleedLayout } from "./FullBleedLayout";
 
 const routes = [
-  { hash: "#accordion", title: "Exclusive accordion", content: <Accordion /> },
-  { hash: "#popover-api", title: "Popover API", content: <Popover /> },
+  { hash: "#accordion", title: "Exclusive accordion", component: Accordion },
+  { hash: "#popover-api", title: "Popover API", component: Popover },
   {
     hash: "#css-anchor-positioning",
     title: "CSS Anchor Positioning",
-    content: <AnchorPositioning />,
+    component: AnchorPositioning,
   },
   {
     hash: "#scroll-driven-animations",
     title: "Scroll-driven Animations",
-    content: <ScrollDrivenAnimation />,
+    component: ScrollDrivenAnimation,
   },
   {
     hash: "#full-bleed-layout",
     title: "Full-bleed layout",
-    content: <FullBleedLayout />,
+    component: FullBleedLayout,
   },
 ];
 
 type Route = (typeof routes)[0];
 
-const currentRoute = () =>
-  routes.find(({ hash }) => location.hash === hash) ?? routes[0];
+const currentRoute = () => {
+  const currentRoute = routes.find(({ hash }) => location.hash === hash);
+
+  if (!currentRoute) {
+    location.hash = routes[0].hash;
+  }
+
+  return currentRoute ?? routes[0];
+};
 
 function Nav({
   route,
@@ -97,6 +104,7 @@ function Nav({
 
 function App() {
   const [route, setRoute] = useState<Route>(currentRoute);
+
   return (
     <>
       <header className="flex w-full flex-col gap-4 text-center">
@@ -128,7 +136,7 @@ function App() {
         <Nav route={route} onNavigate={setRoute} />
       </header>
 
-      <main className="w-full">{route.content}</main>
+      <route.component />
     </>
   );
 }

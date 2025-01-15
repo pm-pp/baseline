@@ -23,7 +23,7 @@ export function Accordion() {
   const [isExclusive, setIsExclusive] = useState(true);
 
   return (
-    <section className="m-auto flex max-w-lg flex-col gap-2">
+    <main className="m-auto flex w-full max-w-lg flex-col gap-2">
       <label className="flex items-center gap-2 text-lg">
         Exclusive?
         <input
@@ -54,6 +54,6 @@ export function Accordion() {
           </details>
         ))}
       </div>
-    </section>
+    </main>
   );
 }

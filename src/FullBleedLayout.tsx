@@ -1,6 +1,6 @@
 export function FullBleedLayout() {
   return (
-    <div className="[margin-inline:max(var(--m),50cqw-var(--w)/2)] [--m:1em] [--w:600px] *:py-[.3em]">
+    <main className="[margin-inline:max(var(--m),50cqw-var(--w)/2)] [--m:1em] [--w:600px] *:py-[.3em]">
       <section>
         <h1 className="text-xl font-bold">Main title</h1>
         <p className="text-justify">
@@ -70,6 +70,6 @@ export function FullBleedLayout() {
           shortbread. Powder tiramisu tart wafer marshmallow gingerbread powder
         </p>
       </section>
-    </div>
+    </main>
   );
 }

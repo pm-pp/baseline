@@ -3,7 +3,7 @@ import { cn } from "./cn";
 
 export function AnchorPositioning() {
   return (
-    <section className="m-auto flex max-w-lg flex-col gap-4 rounded-2xl bg-gray-100 p-8 lg:[anchor-name:--post]">
+    <main className="m-auto flex max-w-lg flex-col gap-4 rounded-2xl bg-gray-100 p-8 lg:[anchor-name:--post]">
       <h1 className="text-2xl font-bold">Learn about CSS</h1>
 
       <img
@@ -71,7 +71,7 @@ export function AnchorPositioning() {
         commodo dignissim pulvinar. Vestibulum ante ipsum primis in faucibus
         orci luctus et ultrices posuere cubilia curae;
       </p>
-    </section>
+    </main>
   );
 }
 
