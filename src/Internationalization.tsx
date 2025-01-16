@@ -51,7 +51,6 @@ const formatTime = (
 
 export function Internationalization() {
   const now = new Date();
-  const previousDate = new Date(2022, 2, 20);
 
   return (
     <main className="m-auto flex w-full max-w-lg flex-col gap-4 font-mono **:[code]:text-xs **:[h2]:text-xl **:[h2]:font-bold **:[p]:text-sm *:[section]:space-y-2 **:[time]:text-sm">
