@@ -14,35 +14,45 @@ const formatNumberRange = (
     valueB,
   );
 
-const timeFormatter = new Intl.RelativeTimeFormat(navigator.language, {
-  style: "narrow",
-});
+const formatTime = (
+  value: number,
+  unit: Intl.RelativeTimeFormatUnit,
+  options?: Intl.RelativeTimeFormatOptions,
+) =>
+  new Intl.RelativeTimeFormat(
+    navigator.language,
+    options ?? {
+      style: "narrow",
+    },
+  ).format(value, unit);
 
-const maximums: [number, Intl.RelativeTimeFormatUnit][] = [
-  [60, "seconds"],
-  [60, "minutes"],
-  [24, "hours"],
-  [7, "days"],
-  [4.34524, "weeks"],
-  [12, "months"],
-  [Number.POSITIVE_INFINITY, "years"],
-];
+// const maximums: [number, Intl.RelativeTimeFormatUnit][] = [
+//   [60, "seconds"],
+//   [60, "minutes"],
+//   [24, "hours"],
+//   [7, "days"],
+//   [4.34524, "weeks"],
+//   [12, "months"],
+//   [Number.POSITIVE_INFINITY, "years"],
+// ];
 
-function formatTimeAgo(date: Date) {
-  let duration = (date.getTime() - Date.now()) / 1000;
+// function formatTimeAgo(date: Date) {
+//   let duration = (date.getTime() - Date.now()) / 1000;
 
-  const [, unit] = maximums.find(([amount]) => {
-    if (Math.abs(duration) < amount) {
-      return true;
-    }
-    duration /= amount;
-  })!;
+//   const [, unit] = maximums.find(([amount]) => {
+//     if (Math.abs(duration) < amount) {
+//       return true;
+//     }
+//     duration /= amount;
+//   })!;
 
-  return timeFormatter.format(Math.round(duration), unit);
-}
+//   return timeFormatter.format(Math.round(duration), unit);
+// }
 
 export function Internationalization() {
-  const date = new Date();
+  const now = new Date();
+  const previousDate = new Date(2022, 2, 20);
+
   return (
     <main className="m-auto flex w-full max-w-lg flex-col gap-4 font-mono **:[code]:text-xs **:[h2]:text-xl **:[h2]:font-bold **:[p]:text-sm *:[section]:space-y-2 **:[time]:text-sm">
       <p className="my-4 font-sans">
@@ -54,7 +64,7 @@ export function Internationalization() {
       </section>
       <section>
         <h2>Intl.DateTimeFormat</h2>
-        <time dateTime={date.toUTCString()}>{date.toUTCString()}</time>
+        <time dateTime={now.toUTCString()}>{now.toUTCString()}</time>
         {(
           [
             {
@@ -89,7 +99,7 @@ export function Internationalization() {
           ] as Intl.DateTimeFormatOptions[]
         ).map((options) => {
           const code = JSON.stringify(options, null, "\t");
-          const ds = formatDate(date, options);
+          const ds = formatDate(now, options);
 
           return (
             <time
@@ -129,7 +139,8 @@ export function Internationalization() {
             { style: "unit", unit: "liter" },
           ] as Intl.NumberFormatOptions[]
         ).map((options) => {
-          const code = JSON.stringify(options);
+          const code = JSON.stringify(options, null, "\t");
+
           return (
             <p
               key={code}
@@ -170,17 +181,36 @@ export function Internationalization() {
       </section>
       <section>
         <h2>Intl.RelativeTimeFormat</h2>
-        <time dateTime={date.toUTCString()}>{date.toUTCString()}</time>
-        {[formatTimeAgo(new Date(2022, 2, 20))].map((ds) => (
-          <time
-            key={ds}
-            dateTime={ds}
-            className="flex items-center justify-between"
-          >
-            {ds}
-            <code>...</code>
-          </time>
-        ))}
+        {(
+          [
+            [3, "quarter", { style: "long" }],
+            [3, "quarter", { style: "short" }],
+            [3, "quarter", { style: "narrow" }],
+            [1, "days", { style: "long" }],
+            [2, "days", { style: "short" }],
+            [3, "days", { style: "narrow" }],
+          ] as [
+            number,
+            Intl.RelativeTimeFormatUnit,
+            Intl.RelativeTimeFormatOptions,
+          ][]
+        ).map(([value, unit, options]) => {
+          const code = JSON.stringify(options);
+          const time = formatTime(value, unit, options);
+
+          return (
+            <time
+              key={time}
+              dateTime={time}
+              className="flex flex-col justify-between whitespace-pre"
+            >
+              {time}
+              <code>
+                {unit} | {code}
+              </code>
+            </time>
+          );
+        })}
       </section>
       <section>
         <h2>Intl.Segmenter</h2>
