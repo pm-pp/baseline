@@ -12,6 +12,7 @@ import { Button } from "./Button";
 import { cn } from "./cn";
 import { ScrollDrivenAnimation } from "./ScrollDrivenAnimation";
 import { FullBleedLayout } from "./FullBleedLayout";
+import { Internationalization } from "./Internationalization";
 
 const routes = [
   { hash: "#accordion", title: "Exclusive accordion", component: Accordion },
@@ -30,6 +31,11 @@ const routes = [
     hash: "#full-bleed-layout",
     title: "Full-bleed layout",
     component: FullBleedLayout,
+  },
+  {
+    hash: "#internationalization",
+    title: "Internationalization APIs",
+    component: Internationalization,
   },
 ];
 
