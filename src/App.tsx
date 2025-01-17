@@ -4,37 +4,37 @@ import {
   useEffect,
   useRef,
   useState,
-} from "react";
-import { Accordion } from "./Accordion";
-import { Popover } from "./Popover";
-import { AnchorPositioning } from "./AnchorPositioning";
-import { Button } from "./Button";
-import { cn } from "./cn";
-import { ScrollDrivenAnimation } from "./ScrollDrivenAnimation";
-import { FullBleedLayout } from "./FullBleedLayout";
-import { Internationalization } from "./Internationalization";
+} from 'react';
+import { Accordion } from './Accordion';
+import { Popover } from './Popover';
+import { AnchorPositioning } from './AnchorPositioning';
+import { Button } from './Button';
+import { cn } from './cn';
+import { ScrollDrivenAnimation } from './ScrollDrivenAnimation';
+import { FullBleedLayout } from './FullBleedLayout';
+import { Internationalization } from './Internationalization';
 
 const routes = [
-  { hash: "#accordion", title: "Exclusive accordion", component: Accordion },
-  { hash: "#popover-api", title: "Popover API", component: Popover },
+  { hash: '#accordion', title: 'Exclusive accordion', component: Accordion },
+  { hash: '#popover-api', title: 'Popover API', component: Popover },
   {
-    hash: "#css-anchor-positioning",
-    title: "CSS Anchor Positioning",
+    hash: '#css-anchor-positioning',
+    title: 'CSS Anchor Positioning',
     component: AnchorPositioning,
   },
   {
-    hash: "#scroll-driven-animations",
-    title: "Scroll-driven Animations",
+    hash: '#scroll-driven-animations',
+    title: 'Scroll-driven Animations',
     component: ScrollDrivenAnimation,
   },
   {
-    hash: "#full-bleed-layout",
-    title: "Full-bleed layout",
+    hash: '#full-bleed-layout',
+    title: 'Full-bleed layout',
     component: FullBleedLayout,
   },
   {
-    hash: "#internationalization",
-    title: "Internationalization APIs",
+    hash: '#internationalization',
+    title: 'Internationalization APIs',
     component: Internationalization,
   },
 ];
@@ -65,17 +65,17 @@ function Nav({
   }, [onNavigate]);
 
   useEffect(() => {
-    window.addEventListener("hashchange", handleHashChange);
+    window.addEventListener('hashchange', handleHashChange);
 
     return () => {
-      window.removeEventListener("hashchange", handleHashChange);
+      window.removeEventListener('hashchange', handleHashChange);
     };
   }, [handleHashChange]);
 
-  const BaseNav = ({ className }: ComponentPropsWithoutRef<"nav">) => (
+  const BaseNav = ({ className }: ComponentPropsWithoutRef<'nav'>) => (
     <nav
       className={cn(
-        "flex flex-col flex-wrap justify-center gap-2 text-2xl font-medium",
+        'flex flex-col flex-wrap justify-center gap-2 text-2xl font-medium',
         className,
       )}
     >

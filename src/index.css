@@ -1,11 +1,10 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  --font-sans: "Satoshi", "sans-sarif";
+  --font-sans: 'Satoshi', 'sans-sarif';
 }
 
 @layer base {
-
   html {
     @apply antialiased;
   }

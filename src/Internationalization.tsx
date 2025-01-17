@@ -22,9 +22,63 @@ const formatTime = (
   new Intl.RelativeTimeFormat(
     navigator.language,
     options ?? {
-      style: "narrow",
+      style: 'narrow',
     },
   ).format(value, unit);
+
+const dateTimeFormats: Intl.DateTimeFormatOptions[] = [
+  {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+  },
+  {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  },
+  {
+    dateStyle: 'full',
+    timeStyle: 'long',
+    timeZone: 'Australia/Sydney',
+  },
+  {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    hour12: false,
+    timeZone: 'America/Los_Angeles',
+  },
+  { hour: 'numeric', dayPeriod: 'short' },
+];
+
+const numberFormats: Intl.NumberFormatOptions[] = [
+  { notation: 'compact' },
+  { notation: 'engineering' },
+  { notation: 'scientific' },
+  { notation: 'standard' },
+  { style: 'currency', currency: 'EUR' },
+  { style: 'unit', unit: 'liter' },
+];
+
+const relativeTimeFormats: [
+  number,
+  Intl.RelativeTimeFormatUnit,
+  Intl.RelativeTimeFormatOptions,
+][] = [
+  [3, 'quarter', { style: 'long' }],
+  [3, 'quarter', { style: 'short' }],
+  [3, 'quarter', { style: 'narrow' }],
+  [1, 'days', { style: 'long' }],
+  [2, 'days', { style: 'short' }],
+  [3, 'days', { style: 'narrow' }],
+];
 
 // const maximums: [number, Intl.RelativeTimeFormatUnit][] = [
 //   [60, "seconds"],
@@ -64,40 +118,8 @@ export function Internationalization() {
       <section>
         <h2>Intl.DateTimeFormat</h2>
         <time dateTime={now.toUTCString()}>{now.toUTCString()}</time>
-        {(
-          [
-            {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-              hour: "numeric",
-              minute: "2-digit",
-            },
-            {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            },
-            {
-              dateStyle: "full",
-              timeStyle: "long",
-              timeZone: "Australia/Sydney",
-            },
-            {
-              year: "numeric",
-              month: "numeric",
-              day: "numeric",
-              hour: "numeric",
-              minute: "numeric",
-              second: "numeric",
-              hour12: false,
-              timeZone: "America/Los_Angeles",
-            },
-            { hour: "numeric", dayPeriod: "short" },
-          ] as Intl.DateTimeFormatOptions[]
-        ).map((options) => {
-          const code = JSON.stringify(options, null, "\t");
+        {dateTimeFormats.map((options) => {
+          const code = JSON.stringify(options, null, '\t');
           const ds = formatDate(now, options);
 
           return (
@@ -128,17 +150,8 @@ export function Internationalization() {
         <h2>Intl.NumberFormat</h2>
         <p>76523678</p>
         <h3 className="font-bold">format()</h3>
-        {(
-          [
-            { notation: "compact" },
-            { notation: "engineering" },
-            { notation: "scientific" },
-            { notation: "standard" },
-            { style: "currency", currency: "EUR" },
-            { style: "unit", unit: "liter" },
-          ] as Intl.NumberFormatOptions[]
-        ).map((options) => {
-          const code = JSON.stringify(options, null, "\t");
+        {numberFormats.map((options) => {
+          const code = JSON.stringify(options, null, '\t');
 
           return (
             <p
@@ -152,24 +165,24 @@ export function Internationalization() {
         })}
         <h3 className="font-bold">formatRange()</h3>
         <p className="flex flex-col justify-between whitespace-pre">
-          {formatNumberRange(2.9, 3.1, { style: "currency", currency: "EUR" })}
+          {formatNumberRange(2.9, 3.1, { style: 'currency', currency: 'EUR' })}
           <code>
             {JSON.stringify({
-              style: "currency",
-              currency: "EUR",
+              style: 'currency',
+              currency: 'EUR',
             })}
           </code>
         </p>
         <p className="flex flex-col justify-between whitespace-pre">
           {formatNumberRange(2.9, 3.1, {
-            style: "currency",
-            currency: "EUR",
+            style: 'currency',
+            currency: 'EUR',
             maximumFractionDigits: 0,
           })}
           <code>
             {JSON.stringify({
-              style: "currency",
-              currency: "EUR",
+              style: 'currency',
+              currency: 'EUR',
               maximumFractionDigits: 0,
             })}
           </code>
@@ -177,23 +190,48 @@ export function Internationalization() {
       </section>
       <section>
         <h2>Intl.PluralRules</h2>
+        {[
+          [
+            new Intl.PluralRules('ar-EG').select(0),
+            'new Intl.PluralRules("ar-EG").select(0)',
+          ],
+          [
+            new Intl.PluralRules('ar-EG').select(5),
+            'new Intl.PluralRules("ar-EG").select(5)',
+          ],
+          [
+            new Intl.PluralRules('ar-EG').select(55),
+            'new Intl.PluralRules("ar-EG").select(55)',
+          ],
+          [
+            new Intl.PluralRules('sl').selectRange(102, 201),
+            'new Intl.PluralRules("sl").selectRange(102, 201)',
+          ],
+          [
+            new Intl.PluralRules('sl').selectRange(102, 201),
+            'new Intl.PluralRules("sl").selectRange(102, 102)',
+          ],
+          [
+            new Intl.PluralRules('uk').resolvedOptions().pluralCategories,
+            'new Intl.PluralRules("uk").resolvedOptions().pluralCategories',
+          ],
+          [
+            new Intl.PluralRules('pt').resolvedOptions().pluralCategories,
+            'new Intl.PluralRules("pt").resolvedOptions().pluralCategories',
+          ],
+        ].map(([value, expression]) => (
+          <p
+            key={expression}
+            className="flex flex-col justify-between whitespace-break-spaces"
+          >
+            {value}
+            <code>{expression}</code>
+          </p>
+        ))}
       </section>
       <section>
         <h2>Intl.RelativeTimeFormat</h2>
-        {(
-          [
-            [3, "quarter", { style: "long" }],
-            [3, "quarter", { style: "short" }],
-            [3, "quarter", { style: "narrow" }],
-            [1, "days", { style: "long" }],
-            [2, "days", { style: "short" }],
-            [3, "days", { style: "narrow" }],
-          ] as [
-            number,
-            Intl.RelativeTimeFormatUnit,
-            Intl.RelativeTimeFormatOptions,
-          ][]
-        ).map(([value, unit, options]) => {
+        {relativeTimeFormats.map(([value, unit, options]) => {
           const code = JSON.stringify(options);
           const time = formatTime(value, unit, options);
 

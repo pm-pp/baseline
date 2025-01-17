@@ -1,5 +1,5 @@
-import { ComponentPropsWithoutRef } from "react";
-import { cn } from "./cn";
+import { ComponentPropsWithoutRef } from 'react';
+import { cn } from './cn';
 
 export function AnchorPositioning() {
   return (
@@ -75,7 +75,7 @@ export function AnchorPositioning() {
   );
 }
 
-function Footnote({ className, ...props }: ComponentPropsWithoutRef<"span">) {
+function Footnote({ className, ...props }: ComponentPropsWithoutRef<'span'>) {
   return (
     <span
       {...props}

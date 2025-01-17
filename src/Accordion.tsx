@@ -1,21 +1,21 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 const items = [
   [
-    "Welcome to Learn CSS!",
-    "An evergreen CSS course and reference to level up your web styling expertise.",
+    'Welcome to Learn CSS!',
+    'An evergreen CSS course and reference to level up your web styling expertise.',
   ],
   [
-    "Box Model",
-    "Everything displayed by CSS is a box. Understanding how the CSS Box Model works is therefore a core foundation of CSS.",
+    'Box Model',
+    'Everything displayed by CSS is a box. Understanding how the CSS Box Model works is therefore a core foundation of CSS.',
   ],
   [
-    "Selectors",
-    "To apply CSS to an element you need to select it. CSS provides you with a number of different ways to do this, and you can explore them in this module.",
+    'Selectors',
+    'To apply CSS to an element you need to select it. CSS provides you with a number of different ways to do this, and you can explore them in this module.',
   ],
   [
-    "...",
-    "(chapters 4 to 30 of this course have been omitted for demonstation purposes)",
+    '...',
+    '(chapters 4 to 30 of this course have been omitted for demonstation purposes)',
   ],
 ];
 
@@ -37,7 +37,7 @@ export function Accordion() {
         {items.map(([summary, description], index) => (
           <details
             key={summary}
-            name={isExclusive ? "exclusive-accordion" : undefined}
+            name={isExclusive ? 'exclusive-accordion' : undefined}
             className="group border-violet-800"
           >
             <summary className="bg-gray-400 p-2.5 text-xl group-first:rounded-t-lg group-last:rounded-b-lg group-open:border-b-4 group-open:group-last:!rounded-b-none">

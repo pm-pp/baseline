@@ -1,6 +1,6 @@
-import { MouseEventHandler, useRef, useState } from "react";
-import { Button } from "./Button";
-import { cn } from "./cn";
+import { MouseEventHandler, useRef, useState } from 'react';
+import { Button } from './Button';
+import { cn } from './cn';
 
 /**
  * The `popover=auto` enables light-dismiss behavior and automatically closes other popovers.
@@ -72,9 +72,9 @@ function Backdrop() {
 }
 
 function Multiple() {
-  type PopoverAttribute = "auto" | "manual";
+  type PopoverAttribute = 'auto' | 'manual';
 
-  const [popover, setPopover] = useState<PopoverAttribute>("auto");
+  const [popover, setPopover] = useState<PopoverAttribute>('auto');
 
   return (
     <div className="relative flex flex-col gap-2">
@@ -82,7 +82,7 @@ function Multiple() {
 
       <p>
         Demonstrates that, generally, only one <em>auto</em> popover can be
-        displayed at once. Also demonstrates that multiple <em>manual</em>{" "}
+        displayed at once. Also demonstrates that multiple <em>manual</em>{' '}
         popovers can be displayed at once, but they can't be light-dismissed.
       </p>
 
@@ -92,8 +92,8 @@ function Multiple() {
           id="auto"
           name="auto"
           value="auto"
-          checked={popover === "auto"}
-          onChange={() => setPopover("auto")}
+          checked={popover === 'auto'}
+          onChange={() => setPopover('auto')}
         />
         <label htmlFor="auto">auto</label>
         <input
@@ -101,14 +101,14 @@ function Multiple() {
           id="manual"
           name="manual"
           value="manual"
-          checked={popover === "manual"}
-          onChange={() => setPopover("manual")}
+          checked={popover === 'manual'}
+          onChange={() => setPopover('manual')}
         />
         <label htmlFor="manual">manual</label>
       </fieldset>
 
       <div className="flex flex-col gap-2">
-        {["1", "2"].map((id) => {
+        {['1', '2'].map((id) => {
           const target = `popover-${id}`;
           return (
             <div key={`multiple-${target}`} className="flex w-full gap-1">
@@ -116,7 +116,7 @@ function Multiple() {
                 Show popover #{id}
               </Button>
 
-              {popover === "manual" && (
+              {popover === 'manual' && (
                 <Button popoverTarget={target} popoverTargetAction="hide">
                   Hide popover #{id}
                 </Button>
@@ -126,7 +126,7 @@ function Multiple() {
         })}
       </div>
 
-      {["1", "2"].map((id) => (
+      {['1', '2'].map((id) => (
         <div
           key={`popover-${id}`}
           id={`popover-${id}`}
@@ -210,21 +210,21 @@ function Nested() {
 function Toast() {
   interface ToastType {
     id: ReturnType<typeof crypto.randomUUID>;
-    type: "success" | "fail";
+    type: 'success' | 'fail';
     message: string;
   }
   const toastContainerRef = useRef<HTMLUListElement>(null);
   const [toasts, setToasts] = useState<Array<ToastType>>([]);
-  const successCount = toasts.filter(({ type }) => type === "success").length;
-  const failCount = toasts.filter(({ type }) => type === "fail").length;
+  const successCount = toasts.filter(({ type }) => type === 'success').length;
+  const failCount = toasts.filter(({ type }) => type === 'fail').length;
   const handleGenerate =
-    (type: ToastType["type"]): MouseEventHandler<HTMLButtonElement> =>
+    (type: ToastType['type']): MouseEventHandler<HTMLButtonElement> =>
     () => {
       const toast = {
         id: crypto.randomUUID(),
         type,
         message:
-          type === "success" ? "Action was successful!" : "Action failed!",
+          type === 'success' ? 'Action was successful!' : 'Action failed!',
       };
 
       const modifiedToasts = [...toasts, toast];
@@ -252,11 +252,11 @@ function Toast() {
       </p>
 
       <div className="flex gap-2">
-        <Button onClick={handleGenerate("success")}>
+        <Button onClick={handleGenerate('success')}>
           Generate success toast
         </Button>
 
-        <Button onClick={handleGenerate("fail")}>Generate fail toast</Button>
+        <Button onClick={handleGenerate('fail')}>Generate fail toast</Button>
       </div>
 
       <p>
@@ -272,9 +272,9 @@ function Toast() {
           <li
             key={`toast-${id}`}
             className={cn(
-              "rounded-lg p-2 font-medium text-white",
-              type === "success" && "bg-green-600",
-              type === "fail" && "bg-red-600",
+              'rounded-lg p-2 font-medium text-white',
+              type === 'success' && 'bg-green-600',
+              type === 'fail' && 'bg-red-600',
             )}
           >
             {`#${index} ${message}`}
