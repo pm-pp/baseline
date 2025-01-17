@@ -114,6 +114,19 @@ export function Internationalization() {
       </p>
       <section>
         <h2>Intl.Collator</h2>
+        <p>Z, a, z, ä</p>
+        <p className="flex flex-col justify-between whitespace-pre">
+          {['Z', 'a', 'z', 'ä']
+            .sort(new Intl.Collator('de').compare)
+            .join(', ')}
+          <code>{`de`}</code>
+        </p>
+        <p className="flex flex-col justify-between whitespace-pre">
+          {['Z', 'a', 'z', 'ä']
+            .sort(new Intl.Collator('sv').compare)
+            .join(', ')}
+          <code>{`sv`}</code>
+        </p>
       </section>
       <section>
         <h2>Intl.DateTimeFormat</h2>
@@ -150,6 +163,27 @@ export function Internationalization() {
       </section>
       <section>
         <h2>Intl.ListFormat</h2>
+        <p className="flex flex-col justify-between whitespace-pre">
+          {new Intl.ListFormat(navigator.language, {
+            style: 'long',
+            type: 'conjunction',
+          }).format(['Motorcycle', 'Bus', 'Car'])}
+          <code>{`{ style: 'short', type: 'disjunction' }`}</code>
+        </p>
+        <p className="flex flex-col justify-between whitespace-pre">
+          {new Intl.ListFormat(navigator.language, {
+            style: 'short',
+            type: 'disjunction',
+          }).format(['Motorcycle', 'Bus', 'Car'])}
+          <code>{`{ style: 'short', type: 'disjunction' }`}</code>
+        </p>
+        <p className="flex flex-col justify-between whitespace-pre">
+          {new Intl.ListFormat(navigator.language, {
+            style: 'narrow',
+            type: 'unit',
+          }).format(['Motorcycle', 'Bus', 'Car'])}
+          <code>{`{ style: 'narrow', type: 'unit' }`}</code>
+        </p>
       </section>
       <section>
         <h2>Intl.Locale</h2>
