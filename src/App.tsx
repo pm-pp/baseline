@@ -13,6 +13,7 @@ import { cn } from './cn';
 import { ScrollDrivenAnimation } from './ScrollDrivenAnimation';
 import { FullBleedLayout } from './FullBleedLayout';
 import { Internationalization } from './Internationalization';
+import { TargetText } from './TargetText';
 
 const routes = [
   { hash: '#accordion', title: 'Exclusive accordion', component: Accordion },
@@ -36,6 +37,11 @@ const routes = [
     hash: '#internationalization',
     title: 'Internationalization APIs',
     component: Internationalization,
+  },
+  {
+    hash: '#highlight-text-fragment',
+    title: 'Highlight text fragment',
+    component: TargetText,
   },
 ];
 
