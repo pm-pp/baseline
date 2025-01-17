@@ -204,14 +204,6 @@ export function Internationalization() {
             'new Intl.PluralRules("ar-EG").select(55)',
           ],
           [
-            new Intl.PluralRules('sl').selectRange(102, 201),
-            'new Intl.PluralRules("sl").selectRange(102, 201)',
-          ],
-          [
-            new Intl.PluralRules('sl').selectRange(102, 201),
-            'new Intl.PluralRules("sl").selectRange(102, 102)',
-          ],
-          [
             new Intl.PluralRules('uk').resolvedOptions().pluralCategories,
             'new Intl.PluralRules("uk").resolvedOptions().pluralCategories',
           ],
@@ -221,7 +213,7 @@ export function Internationalization() {
           ],
         ].map(([value, expression]) => (
           <p
-            key={expression}
+            key={expression as string}
             className="flex flex-col justify-between whitespace-break-spaces"
           >
             {value}
