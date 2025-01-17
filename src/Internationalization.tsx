@@ -107,7 +107,7 @@ export function Internationalization() {
   const now = new Date();
 
   return (
-    <main className="m-auto flex w-full max-w-lg flex-col gap-4 font-mono **:[code]:text-xs **:[h2]:text-xl **:[h2]:font-bold **:[p]:text-sm *:[section]:space-y-2 **:[time]:text-sm">
+    <main className="m-auto flex w-full max-w-lg flex-col gap-4 font-mono **:[h2]:text-xl **:[h2]:font-bold **:[p]:text-sm *:[section]:space-y-2 **:[time]:text-sm">
       <p className="my-4 font-sans">
         Maybe something interesting about each one of the internationalization
         constructors and other language sensitive functions.
@@ -136,6 +136,14 @@ export function Internationalization() {
       </section>
       <section>
         <h2>Intl.DisplayNames</h2>
+        <p className="flex flex-col justify-between whitespace-pre">
+          {new Intl.DisplayNames('pt', { type: 'region' }).of('US')}
+          <code>{`new Intl.DisplayNames('pt, { type: 'region' }).of('US')`}</code>
+        </p>
+        <p className="flex flex-col justify-between whitespace-pre">
+          {new Intl.DisplayNames('en', { type: 'language' }).of('en-GB')}
+          <code>{`new Intl.DisplayNames('en', { type: 'language' }).of('en-GB')`}</code>
+        </p>
       </section>
       <section>
         <h2>Intl.DurationFormat</h2>
@@ -167,10 +175,14 @@ export function Internationalization() {
         <p className="flex flex-col justify-between whitespace-pre">
           {formatNumberRange(2.9, 3.1, { style: 'currency', currency: 'EUR' })}
           <code>
-            {JSON.stringify({
-              style: 'currency',
-              currency: 'EUR',
-            })}
+            {JSON.stringify(
+              {
+                style: 'currency',
+                currency: 'EUR',
+              },
+              null,
+              '\t',
+            )}
           </code>
         </p>
         <p className="flex flex-col justify-between whitespace-pre">
@@ -180,11 +192,15 @@ export function Internationalization() {
             maximumFractionDigits: 0,
           })}
           <code>
-            {JSON.stringify({
-              style: 'currency',
-              currency: 'EUR',
-              maximumFractionDigits: 0,
-            })}
+            {JSON.stringify(
+              {
+                style: 'currency',
+                currency: 'EUR',
+                maximumFractionDigits: 0,
+              },
+              null,
+              '\t',
+            )}
           </code>
         </p>
       </section>
@@ -204,11 +220,15 @@ export function Internationalization() {
             'new Intl.PluralRules("ar-EG").select(55)',
           ],
           [
-            new Intl.PluralRules('uk').resolvedOptions().pluralCategories,
+            new Intl.PluralRules('uk')
+              .resolvedOptions()
+              .pluralCategories.join(', '),
             'new Intl.PluralRules("uk").resolvedOptions().pluralCategories',
           ],
           [
-            new Intl.PluralRules('pt').resolvedOptions().pluralCategories,
+            new Intl.PluralRules('pt')
+              .resolvedOptions()
+              .pluralCategories.join(', '),
             'new Intl.PluralRules("pt").resolvedOptions().pluralCategories',
           ],
         ].map(([value, expression]) => (
