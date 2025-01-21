@@ -3,7 +3,7 @@ import { cn } from './cn';
 
 export function AnchorPositioning() {
   return (
-    <main className="mx-auto flex max-w-lg flex-col gap-4 rounded-2xl bg-gray-100 p-8 lg:[anchor-name:--post]">
+    <main className="mx-auto flex max-w-lg flex-col gap-4 rounded-2xl border-[1px] border-purple-800 bg-white p-8 lg:[anchor-name:--post]">
       <h1 className="text-2xl font-bold">Learn about CSS</h1>
 
       <img
@@ -80,8 +80,8 @@ function Footnote({ className, ...props }: ComponentPropsWithoutRef<'span'>) {
     <span
       {...props}
       className={cn(
-        "flex gap-1 rounded-xl bg-fuchsia-200 p-2 before:font-bold before:content-['Note:']",
-        "lg:absolute lg:mx-5 lg:bg-gray-100 lg:before:content-['']",
+        "flex gap-1 rounded-xl border-[1px] border-purple-800 bg-purple-200 p-2 before:font-bold before:content-['Note:']",
+        "lg:absolute lg:mx-5 lg:bg-white lg:before:content-['']",
         className,
       )}
     />
