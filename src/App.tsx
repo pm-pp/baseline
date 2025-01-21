@@ -14,6 +14,7 @@ import { ScrollDrivenAnimation } from './ScrollDrivenAnimation';
 import { FullBleedLayout } from './FullBleedLayout';
 import { Internationalization } from './Internationalization';
 import { TargetText } from './TargetText';
+import { InputValidation } from './InputValidation';
 
 const routes = [
   { hash: '#accordion', title: 'Exclusive accordion', component: Accordion },
@@ -42,6 +43,11 @@ const routes = [
     hash: '#highlight-text-fragment',
     title: 'Highlight text fragment',
     component: TargetText,
+  },
+  {
+    hash: '#input-validation',
+    title: 'Input validation',
+    component: InputValidation,
   },
 ];
 

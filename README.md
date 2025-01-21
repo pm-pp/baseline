@@ -17,6 +17,8 @@
   - [Popping Comments With CSS Anchor Positioning and View-Driven Animations](https://css-tricks.com/popping-comments-with-css-anchor-positioning-and-view-driven-animations)
   - [Anchor tool](https://anchor-tool.com/)
   - [Una's demos](https://codepen.io/collection/ExkRWw)
+- [ ] [The :user-valid and :user-invalid pseudo-classes](https://web.dev/articles/user-valid-and-user-invalid-pseudo-classes)
+  - https://codepen.io/web-dot-dev/pen/wvNJGrO
 - [ ] Consolidate CSS Grid
   - [CSS Grid Areas](https://ishadeed.com/article/css-grid-area)
 - [ ] [importmap](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap)
