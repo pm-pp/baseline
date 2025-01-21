@@ -7,7 +7,10 @@ export function ScrollDrivenAnimation() {
       <h2 className="text-xl font-bold">Carousel step indicator</h2>
 
       <div className="gallery relative">
-        <div className="scrollcontainer flex [scroll-snap-type:x_mandatory] overflow-x-scroll [scroll-timeline:--scrollcontainer_inline]">
+        <div
+          className="scrollcontainer flex [scroll-snap-type:x_mandatory] overflow-x-scroll [scroll-timeline:--scrollcontainer_inline]"
+          tabIndex={0}
+        >
           <div
             className="gallery__progress absolute top-0 left-0 z-10 h-4 w-full origin-[0_50%] transform-[scaleX(calc(1/var(--num-images)))] animate-[auto_grow-progress_linear_forwards] bg-red-600 [animation-timeline:--scrollcontainer]"
             style={{ '--num-images': colors.length } as CSSProperties}
