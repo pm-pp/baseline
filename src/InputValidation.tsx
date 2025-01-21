@@ -22,7 +22,7 @@ function ValidationList() {
 
 export function InputValidation() {
   return (
-    <main className="m-auto flex max-w-lg min-w-xs flex-col gap-6">
+    <main className="mx-auto flex max-w-lg min-w-xs flex-col gap-6">
       <div className="group/field flex flex-col gap-2">
         <label htmlFor="input" className="font-bold">
           Input

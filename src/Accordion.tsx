@@ -23,7 +23,7 @@ export function Accordion() {
   const [isExclusive, setIsExclusive] = useState(true);
 
   return (
-    <main className="m-auto flex w-full max-w-lg flex-col gap-2">
+    <main className="mx-auto flex w-full max-w-lg flex-col gap-2">
       <label className="flex items-center gap-2 text-lg">
         Exclusive?
         <input
@@ -33,19 +33,19 @@ export function Accordion() {
           onChange={(event) => setIsExclusive(event.currentTarget.checked)}
         />
       </label>
-      <div className="divide-y-4 rounded-xl border-4 border-violet-800 **:border-violet-800">
+      <div className="divide-y-4 rounded-xl border-4 border-purple-800 **:border-purple-800">
         {items.map(([summary, description], index) => (
           <details
             key={summary}
             name={isExclusive ? 'exclusive-accordion' : undefined}
-            className="group border-violet-800"
+            className="group border-purple-800"
           >
             <summary className="bg-gray-400 p-2.5 text-xl group-first:rounded-t-lg group-last:rounded-b-lg group-open:border-b-4 group-open:group-last:!rounded-b-none">
               <div className="inline-flex items-center gap-3">
-                <div className="flex size-8 items-center justify-center rounded-[50%] bg-violet-800 text-center font-bold text-white">
+                <div className="flex size-8 items-center justify-center rounded-[50%] bg-purple-800 text-center font-bold text-white">
                   {index + 1}
                 </div>
-                <div className="font-medium underline decoration-violet-800 decoration-wavy decoration-2 group-open:decoration-emerald-300">
+                <div className="font-medium underline decoration-purple-800 decoration-wavy decoration-2 group-open:decoration-emerald-300">
                   {summary}
                 </div>
               </div>

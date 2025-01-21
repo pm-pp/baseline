@@ -2,7 +2,7 @@ import { Button } from './Button';
 
 export function TargetText() {
   return (
-    <main className="m-auto flex max-w-lg flex-col gap-8">
+    <main className="mx-auto flex max-w-lg flex-col gap-8">
       <Button
         onClick={() => {
           window.location.href += ':~:text=Curabitur,iaculis';

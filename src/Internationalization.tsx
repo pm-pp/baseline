@@ -107,7 +107,7 @@ export function Internationalization() {
   const now = new Date();
 
   return (
-    <main className="m-auto flex w-full max-w-lg flex-col gap-4 font-mono **:[h2]:text-xl **:[h2]:font-bold **:[p]:text-sm *:[section]:space-y-2 **:[time]:text-sm">
+    <main className="mx-auto flex w-full max-w-lg flex-col gap-4 font-mono **:[h2]:text-xl **:[h2]:font-bold **:[p]:text-sm *:[section]:space-y-2 **:[time]:text-sm">
       <p className="my-4 font-sans">
         Maybe something interesting about each one of the internationalization
         constructors and other language sensitive functions.

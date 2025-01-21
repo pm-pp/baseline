@@ -63,6 +63,19 @@ const currentRoute = () => {
   return currentRoute ?? routes[0];
 };
 
+function Title({ className }: ComponentPropsWithoutRef<'h1'>) {
+  return (
+    <h1
+      className={cn(
+        'grow text-left text-xl font-bold lg:text-center lg:text-3xl',
+        className,
+      )}
+    >
+      Baseline & beyond
+    </h1>
+  );
+}
+
 function Nav({
   route,
   onNavigate,
@@ -84,22 +97,28 @@ function Nav({
     };
   }, [handleHashChange]);
 
-  const BaseNav = ({ className }: ComponentPropsWithoutRef<'nav'>) => (
-    <nav
+  const NavItem = ({ className, ...props }: ComponentPropsWithoutRef<'a'>) => (
+    <a
+      {...props}
       className={cn(
-        'flex flex-col flex-wrap justify-center gap-2 text-2xl font-medium',
+        'px-4 text-xl decoration-purple-800 decoration-wavy decoration-2 underline-offset-8 hover:underline data-[selected=true]:underline',
         className,
       )}
+    />
+  );
+
+  const BaseNav = ({ className }: ComponentPropsWithoutRef<'nav'>) => (
+    <nav
+      className={cn('flex flex-col flex-wrap justify-center gap-2', className)}
     >
       {routes.map((r) => (
-        <a
+        <NavItem
           key={r.title}
           href={r.hash}
-          className="px-4 decoration-emerald-400 decoration-wavy decoration-2 underline-offset-8 hover:underline data-[selected=true]:underline"
           data-selected={r.hash === route.hash}
         >
           {r.title}
-        </a>
+        </NavItem>
       ))}
     </nav>
   );
@@ -110,13 +129,40 @@ function Nav({
         ref={navRef}
         id="nav"
         popover="auto"
-        className="h-full bg-white backdrop:backdrop-blur-xs"
+        className="h-full bg-gradient-to-r from-purple-100 to-white backdrop:backdrop-blur-xs"
       >
+        <Title className="p-4" />
+
         <BaseNav className="items-start gap-4 py-4" />
       </div>
 
-      <BaseNav className="hidden md:flex md:flex-row" />
+      <BaseNav className="hidden lg:flex lg:flex-row" />
+
+      <NavItem className="lg:hidden" data-selected>
+        {route.title}
+      </NavItem>
     </>
+  );
+}
+
+function MenuIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className=""
+    >
+      <line x1="4" x2="20" y1="12" y2="12" />
+      <line x1="4" x2="20" y1="6" y2="6" />
+      <line x1="4" x2="20" y1="18" y2="18" />
+    </svg>
   );
 }
 
@@ -125,30 +171,15 @@ function App() {
 
   return (
     <>
-      <header className="flex w-full flex-col gap-4 text-center">
-        <div className="flex items-start gap-4">
+      <header className="group/nav flex w-full flex-col gap-4 text-center">
+        <div className="flex items-center gap-4">
           <Button
-            className="w-fit p-1 text-violet-600 md:hidden"
+            className="w-fit p-1 text-purple-600 lg:hidden"
             popoverTarget="nav"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className=""
-            >
-              <line x1="4" x2="20" y1="12" y2="12" />
-              <line x1="4" x2="20" y1="6" y2="6" />
-              <line x1="4" x2="20" y1="18" y2="18" />
-            </svg>
+            <MenuIcon />
           </Button>
-          <h1 className="grow text-3xl font-bold">Baseline & beyond</h1>
+          <Title className="group-has-open/nav:hidden" />
         </div>
 
         <Nav route={route} onNavigate={setRoute} />
