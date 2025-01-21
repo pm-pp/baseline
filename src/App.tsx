@@ -176,6 +176,7 @@ function App() {
           <Button
             className="w-fit p-1 text-purple-600 lg:hidden"
             popoverTarget="nav"
+            aria-label="Open navigation"
           >
             <MenuIcon />
           </Button>
