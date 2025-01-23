@@ -11,6 +11,7 @@
   - [Progressively Enhanced Popover Toggletips](https://css-irl.info/progressively-enhanced-popover-toggletips)
 - [ ] [`dialog`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)
 - [x] [CSS Anchor Positioning](https://css-tricks.com/css-anchor-positioning-guide)
+  - https://codepen.io/monknow/pen/jOgxmJg
 - [x] [Scroll-Driven Animations](https://css-tricks.com/unleash-the-power-of-scroll-driven-animations/)
   - [A bunch of demos and tools to show off Scroll-driven Animations](https://scroll-driven-animations.style/)
 - [x] [Full-bleed layout with modern CSS](https://css-tip.com/full-bleed-layout)
