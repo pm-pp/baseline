@@ -50,11 +50,18 @@
 }
 
 @layer components {
+  .field-label {
+    @apply font-bold after:px-1;
+    @apply group-has-required/field:after:text-red-500 group-has-required/field:after:content-['*'];
+    @apply group-has-optional/field:after:align-super group-has-optional/field:after:text-xs group-has-optional/field:after:text-gray-400 group-has-optional/field:after:content-['optional'];
+  }
+
   .field {
     @apply rounded p-2.5;
     @apply bg-[var(--state-color)] [--state-color:var(--color-gray-200)];
     @apply outline-offset-2 outline-[var(--state-color)] focus:outline-2;
     @apply valid:focus:[--state-color:var(--color-teal-400)] [:user-valid]:[--state-color:var(--color-green-400)] [:user-valid]:focus:[--state-color:var(--color-green-400)];
     @apply invalid:focus:[--state-color:var(--color-orange-300)] [:user-invalid]:[--state-color:var(--color-red-300)] [:user-invalid]:focus:[--state-color:var(--color-red-300)];
+    @apply placeholder:italic;
   }
 }
