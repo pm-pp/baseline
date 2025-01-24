@@ -15,10 +15,12 @@ import { FullBleedLayout } from './FullBleedLayout';
 import { Internationalization } from './Internationalization';
 import { TargetText } from './TargetText';
 import { InputValidation } from './InputValidation';
+import { Dialog } from './Dialog';
 
 const routes = [
   { hash: '#accordion', title: 'Exclusive accordion', component: Accordion },
   { hash: '#popover-api', title: 'Popover API', component: Popover },
+  { hash: '#dialog', title: 'Dialog', component: Dialog },
   {
     hash: '#css-anchor-positioning',
     title: 'CSS Anchor Positioning',
