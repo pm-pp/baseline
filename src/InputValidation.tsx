@@ -29,6 +29,9 @@ export function InputValidation() {
       onSubmit={console.log}
       className="mx-auto flex max-w-lg min-w-xs flex-col gap-6"
     >
+      <Button type="submit" value="Validate">
+        Validate
+      </Button>
       <div className="group/field flex flex-col gap-2">
         <label htmlFor="input" className="field-label">
           Input
@@ -66,10 +69,6 @@ export function InputValidation() {
         <textarea id="textarea" required className="field" rows={2} />
         <ValidationList />
       </div>
-
-      <Button type="submit" value="Validate">
-        Validate
-      </Button>
     </form>
   );
 }

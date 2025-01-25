@@ -12,6 +12,7 @@
   * {
     @apply transition-colors duration-150 ease-linear;
     @apply [scrollbar-gutter:stable];
+    @apply outline-offset-4 outline-purple-300 focus:rounded focus:outline-2 focus:outline-dashed;
   }
 
   /** Pretty up the scrollbar */

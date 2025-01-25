@@ -18,40 +18,56 @@ import { InputValidation } from './InputValidation';
 import { Dialog } from './Dialog';
 
 const routes = [
-  { hash: '#accordion', title: 'Exclusive accordion', component: Accordion },
-  { hash: '#popover-api', title: 'Popover API', component: Popover },
-  { hash: '#dialog', title: 'Dialog', component: Dialog },
+  {
+    hash: '#accordion',
+    title: 'Exclusive accordion',
+    isBaseline: true,
+    component: Accordion,
+  },
+  {
+    hash: '#popover-api',
+    title: 'Popover API',
+    isBaseline: true,
+    component: Popover,
+  },
+  { hash: '#dialog', title: 'Dialog', isBaseline: true, component: Dialog },
   {
     hash: '#css-anchor-positioning',
     title: 'CSS Anchor Positioning',
+    isBaseline: false,
     component: AnchorPositioning,
   },
   {
     hash: '#scroll-driven-animations',
     title: 'Scroll-driven Animations',
+    isBaseline: false,
     component: ScrollDrivenAnimation,
   },
   {
     hash: '#full-bleed-layout',
     title: 'Full-bleed layout',
+    isBaseline: true,
     component: FullBleedLayout,
   },
   {
     hash: '#internationalization',
     title: 'Internationalization APIs',
+    isBaseline: true,
     component: Internationalization,
   },
   {
     hash: '#highlight-text-fragment',
     title: 'Highlight text fragment',
+    isBaseline: true,
     component: TargetText,
   },
   {
     hash: '#input-validation',
     title: 'Input validation',
+    isBaseline: true,
     component: InputValidation,
   },
-];
+].toSorted((a, b) => a.title.localeCompare(b.title));
 
 type Route = (typeof routes)[0];
 
@@ -103,7 +119,7 @@ function Nav({
     <a
       {...props}
       className={cn(
-        'px-4 text-xl decoration-purple-800 decoration-wavy decoration-2 underline-offset-8 hover:underline data-[selected=true]:underline',
+        'px-4 text-xl decoration-purple-800 decoration-2 underline-offset-6 hover:underline data-[baseline=false]:decoration-red-500 data-[selected=true]:underline',
         className,
       )}
     />
@@ -118,6 +134,7 @@ function Nav({
           key={r.title}
           href={r.hash}
           data-selected={r.hash === route.hash}
+          data-baseline={route.isBaseline}
         >
           {r.title}
         </NavItem>
@@ -140,7 +157,11 @@ function Nav({
 
       <BaseNav className="hidden lg:flex lg:flex-row" />
 
-      <NavItem className="lg:hidden" data-selected>
+      <NavItem
+        className="lg:hidden"
+        data-selected
+        data-baseline={route.isBaseline}
+      >
         {route.title}
       </NavItem>
     </>
