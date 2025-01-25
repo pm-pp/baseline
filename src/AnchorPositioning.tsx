@@ -8,7 +8,7 @@ export function AnchorPositioning() {
         <h1 className="text-2xl font-bold">Learn about CSS</h1>
 
         <img
-          src="https://picsum.photos/id/10/2500/1667"
+          src="https://picsum.photos/id/10/1280/720.webp"
           alt="wood forest landscape"
           className="aspect-video w-full rounded-xl"
         />
