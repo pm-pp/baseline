@@ -266,6 +266,8 @@ function Toast() {
       <ul
         ref={toastContainerRef}
         popover="manual"
+        aria-live="polite"
+        aria-atomic="false"
         className="fixed top-0 right-0 flex flex-col-reverse gap-2 p-2"
       >
         {toasts.map(({ id, type, message }, index) => (
