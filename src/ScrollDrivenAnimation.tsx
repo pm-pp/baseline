@@ -16,14 +16,14 @@ export function ScrollDrivenAnimation() {
             style={{ '--num-images': colors.length } as CSSProperties}
           ></div>
 
-          {colors.map((color) => (
+          {colors.map((color, index) => (
             <div
               key={color}
               className="gallery__entry flex-[0_0_100%] snap-center"
             >
               <img
                 src={`https://dummyimage.com/832x554/${color}/fff`}
-                alt={color}
+                alt={`Color slide ${index + 1} of ${colors.length} (#${color})`}
                 draggable="false"
                 className="w-full"
               />
@@ -51,8 +51,7 @@ export function ScrollDrivenAnimation() {
                 <img
                   className="block aspect-square h-full w-full object-contain"
                   src={`/matroshka-${id}.svg`}
-                  alt=""
-                  title=""
+                  alt={`Matroshka doll ${id} of 05`}
                   width="222"
                   height="184"
                   draggable="false"
@@ -68,10 +67,14 @@ export function ScrollDrivenAnimation() {
               className=""
               style={{ '--i': i + 1 } as CSSProperties}
             >
-              <span
-                className="block aspect-square w-5 animate-[colorize-dot_linear] rounded-[50%] bg-purple-600 [animation-range:calc((var(--i)-1)*20%)_calc(var(--i)*20%+1px)] [animation-timeline:--carousel]"
+              <button
+                type="button"
+                aria-label={`Go to slide ${i + 1}`}
+                className="block aspect-square w-5 animate-[colorize-dot_linear] rounded-[50%] bg-purple-600 cursor-pointer [animation-range:calc((var(--i)-1)*20%)_calc(var(--i)*20%+1px)] [animation-timeline:--carousel]"
                 onClick={() => {
-                  document.getElementById(`carousel_${id}`)?.scrollIntoView();
+                  document.getElementById(`carousel_${id}`)?.scrollIntoView({
+                    behavior: 'smooth',
+                  });
                 }}
               />
             </li>
