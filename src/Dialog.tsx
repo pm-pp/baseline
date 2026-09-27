@@ -12,9 +12,13 @@ export function Dialog() {
 
       <dialog
         ref={dialogRef}
+        aria-labelledby="dialog-title"
         className="h-full place-self-center overflow-hidden rounded-lg bg-white p-8 backdrop:backdrop-blur-xs"
       >
         <div className="divide flex h-full w-full max-w-lg flex-col gap-2">
+          <h2 id="dialog-title" className="text-xl font-bold">
+            Modal Dialog Example
+          </h2>
           <div className="grow space-y-4 overflow-y-auto">
             {[...Array(10)].map((_, i) => (
               <p key={i} className="first:text-red-600 last:text-red-600">

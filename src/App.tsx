@@ -1,4 +1,5 @@
 import {
+  ComponentProps,
   ComponentPropsWithoutRef,
   useCallback,
   useEffect,
@@ -109,12 +110,15 @@ function NavItem({ className, ...props }: ComponentPropsWithoutRef<'a'>) {
 function BaseNav({
   route,
   className,
+  ...props
 }: {
-  route: Route;
-  className: ComponentPropsWithoutRef<'nav'>['className'];
-}) {
+  route: Route
+} &
+  ComponentProps<'nav'>
+) {
   return (
     <nav
+      {...props}
       className={cn('flex flex-col flex-wrap justify-center gap-2', className)}
     >
       {routes.map((r) => (
@@ -123,6 +127,7 @@ function BaseNav({
           href={r.hash}
           data-selected={r.hash === route.hash}
           data-baseline={route.isBaseline}
+          aria-current={r.hash === route.hash ? 'page' : undefined}
         >
           {r.title}
         </NavItem>
@@ -158,14 +163,22 @@ function Nav({
         ref={navRef}
         id="nav"
         popover="auto"
-        className="h-full bg-gradient-to-r from-purple-100 to-white backdrop:backdrop-blur-xs"
+        className="h-full bg-linear-to-r from-purple-100 to-white backdrop:backdrop-blur-xs"
       >
         <Title className="p-4" />
 
-        <BaseNav route={route} className="items-start gap-4 py-4" />
+        <BaseNav
+          route={route}
+          aria-label="Mobile navigation"
+          className="items-start gap-4 py-4"
+        />
       </div>
 
-      <BaseNav route={route} className="hidden lg:flex lg:flex-row" />
+      <BaseNav
+        route={route}
+        aria-label="Primary navigation"
+        className="hidden lg:flex lg:flex-row"
+      />
 
       <NavItem
         className="lg:hidden"
@@ -201,6 +214,10 @@ function MenuIcon() {
 
 function App() {
   const [route, setRoute] = useState<Route>(currentRoute);
+
+  useEffect(() => {
+    document.title = `${route.title} - Baseline & beyond`;
+  }, [route]);
 
   return (
     <>
