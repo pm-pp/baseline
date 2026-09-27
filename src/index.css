@@ -11,7 +11,7 @@
 
   * {
     @apply transition-colors duration-150 ease-linear;
-    @apply [scrollbar-gutter:stable];
+    @apply scrollbar-gutter-stable;
     @apply outline-offset-4 outline-purple-300 focus:rounded focus:outline-2 focus:outline-dashed;
   }
 
@@ -59,10 +59,10 @@
 
   .field {
     @apply rounded p-2.5;
-    @apply bg-[var(--state-color)] [--state-color:var(--color-gray-200)];
-    @apply outline-offset-2 outline-[var(--state-color)] focus:outline-2;
-    @apply valid:focus:[--state-color:var(--color-teal-400)] [:user-valid]:[--state-color:var(--color-green-400)] [:user-valid]:focus:[--state-color:var(--color-green-400)];
-    @apply invalid:focus:[--state-color:var(--color-orange-300)] [:user-invalid]:[--state-color:var(--color-red-300)] [:user-invalid]:focus:[--state-color:var(--color-red-300)];
+    @apply bg-(--state-color) [--state-color:var(--color-gray-200)];
+    @apply outline-offset-2 outline-(--state-color) focus:outline-2;
+    @apply user-valid:[--state-color:var(--color-green-400)] valid:focus:[--state-color:var(--color-teal-400)] [:user-valid]:focus:[--state-color:var(--color-green-400)];
+    @apply user-invalid:[--state-color:var(--color-red-300)] invalid:focus:[--state-color:var(--color-orange-300)] [:user-invalid]:focus:[--state-color:var(--color-red-300)];
     @apply placeholder:italic;
   }
 }

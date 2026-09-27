@@ -39,7 +39,7 @@ export function ScrollDrivenAnimation() {
         className="relative aspect-square overflow-hidden rounded-lg border-4 border-purple-700 bg-white [timeline-scope:--carousel] hover:border-purple-400"
       >
         <ul
-          className="entries flex size-full [scroll-snap-type:x_mandatory] [scrollbar-width:none] overflow-x-scroll overscroll-contain scroll-smooth [scroll-timeline:--carousel_x] focus:outline-none"
+          className="entries flex size-full [scroll-snap-type:x_mandatory] scrollbar-none overflow-x-scroll overscroll-contain scroll-smooth [scroll-timeline:--carousel_x] focus:outline-none"
           tabIndex={0}
         >
           {['01', '02', '03', '04', '05'].map((id) => (
