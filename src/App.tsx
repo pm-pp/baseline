@@ -94,6 +94,43 @@ function Title({ className }: ComponentPropsWithoutRef<'h1'>) {
   );
 }
 
+function NavItem({ className, ...props }: ComponentPropsWithoutRef<'a'>) {
+  return (
+    <a
+      {...props}
+      className={cn(
+        'px-4 text-xl decoration-purple-800 decoration-2 underline-offset-6 hover:underline data-[baseline=false]:decoration-red-500 data-[selected=true]:underline',
+        className,
+      )}
+    />
+  );
+}
+
+function BaseNav({
+  route,
+  className,
+}: {
+  route: Route;
+  className: ComponentPropsWithoutRef<'nav'>['className'];
+}) {
+  return (
+    <nav
+      className={cn('flex flex-col flex-wrap justify-center gap-2', className)}
+    >
+      {routes.map((r) => (
+        <NavItem
+          key={r.title}
+          href={r.hash}
+          data-selected={r.hash === route.hash}
+          data-baseline={route.isBaseline}
+        >
+          {r.title}
+        </NavItem>
+      ))}
+    </nav>
+  );
+}
+
 function Nav({
   route,
   onNavigate,
@@ -115,33 +152,6 @@ function Nav({
     };
   }, [handleHashChange]);
 
-  const NavItem = ({ className, ...props }: ComponentPropsWithoutRef<'a'>) => (
-    <a
-      {...props}
-      className={cn(
-        'px-4 text-xl decoration-purple-800 decoration-2 underline-offset-6 hover:underline data-[baseline=false]:decoration-red-500 data-[selected=true]:underline',
-        className,
-      )}
-    />
-  );
-
-  const BaseNav = ({ className }: ComponentPropsWithoutRef<'nav'>) => (
-    <nav
-      className={cn('flex flex-col flex-wrap justify-center gap-2', className)}
-    >
-      {routes.map((r) => (
-        <NavItem
-          key={r.title}
-          href={r.hash}
-          data-selected={r.hash === route.hash}
-          data-baseline={route.isBaseline}
-        >
-          {r.title}
-        </NavItem>
-      ))}
-    </nav>
-  );
-
   return (
     <>
       <div
@@ -152,10 +162,10 @@ function Nav({
       >
         <Title className="p-4" />
 
-        <BaseNav className="items-start gap-4 py-4" />
+        <BaseNav route={route} className="items-start gap-4 py-4" />
       </div>
 
-      <BaseNav className="hidden lg:flex lg:flex-row" />
+      <BaseNav route={route} className="hidden lg:flex lg:flex-row" />
 
       <NavItem
         className="lg:hidden"
