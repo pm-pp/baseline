@@ -15,6 +15,23 @@
     @apply outline-offset-4 outline-purple-800 focus:rounded focus:outline-2 focus:outline-dashed;
   }
 
+  /**
+   * Honour `prefers-reduced-motion`. The carousel animations are timeline
+   * driven, so shortening `animation-duration` would not stop them - resetting
+   * the `animation` shorthand also clears `animation-timeline`, which leaves
+   * the indicators in a stable resting state instead of animating.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation: none !important;
+      transition-duration: 0.01ms !important;
+      transition-delay: 0ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   /** Pretty up the scrollbar */
   ::-webkit-scrollbar {
     @apply w-1;
