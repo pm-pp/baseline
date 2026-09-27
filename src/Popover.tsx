@@ -275,7 +275,7 @@ function Toast() {
             key={`toast-${id}`}
             className={cn(
               'rounded-lg p-2 font-medium text-white',
-              type === 'success' && 'bg-green-600',
+              type === 'success' && 'bg-green-700',
               type === 'fail' && 'bg-red-600',
             )}
           >
