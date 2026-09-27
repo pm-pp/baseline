@@ -1,9 +1,15 @@
-import { useRef } from 'react';
+import { ComponentProps, useRef } from 'react';
 import { Button } from './Button';
 
-function ValidationList() {
+function ValidationList(props: ComponentProps<"ul">) {
   return (
-    <ul role="list" className="space-y-2">
+    <ul
+      {...props}
+      role="list"
+      aria-live="polite"
+      aria-atomic="false"
+      className="space-y-2"
+    >
       <li className="hidden group-has-valid/field:block before:mr-1 before:hue-rotate-62 before:saturate-40 before:content-['✅']">
         Currently <kbd>:valid</kbd>
       </li>
@@ -37,8 +43,13 @@ export function InputValidation() {
           <label htmlFor="input" className="field-label">
             Input
           </label>
-          <input id="input" required className="field" />
-          <ValidationList />
+          <input
+            id="input"
+            required
+            className="field"
+            aria-describedby="input-status"
+          />
+          <ValidationList id="input-status" />
         </div>
         <div className="group/field flex flex-col gap-2">
           <label htmlFor="input-optional" className="field-label">
@@ -48,27 +59,39 @@ export function InputValidation() {
             id="input-optional"
             className="field"
             placeholder="An optional input is valid from the get-go"
+            aria-describedby="input-optional-status"
           />
-          <ValidationList />
+          <ValidationList id="input-optional-status" />
         </div>
         <div className="group/field flex flex-col gap-2">
           <label htmlFor="select" className="field-label">
             Select
           </label>
-          <select id="select" required className="field">
+          <select
+            id="select"
+            required
+            className="field"
+            aria-describedby="select-status"
+          >
             <option value="">Choose an option</option>
             <option value="1">One</option>
             <option value="2">Two</option>
             <option value="3">Three</option>
           </select>
-          <ValidationList />
+          <ValidationList id="select-status" />
         </div>
         <div className="group/field flex flex-col gap-2">
           <label htmlFor="textarea" className="field-label">
             Textarea
           </label>
-          <textarea id="textarea" required className="field" rows={2} />
-          <ValidationList />
+          <textarea
+            id="textarea"
+            required
+            className="field"
+            rows={2}
+            aria-describedby="textarea-status"
+          />
+          <ValidationList id="textarea-status" />
         </div>
       </form>
     </main>
